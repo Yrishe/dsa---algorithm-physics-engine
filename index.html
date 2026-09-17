@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Algorithm Playground</title>
+    <meta name="description" content="Animated, physics-driven visualisations of Big O, data structures, strings, sorting and trees." />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧩</text></svg>" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <button id="menuToggle" class="icon-btn" aria-label="Toggle topics">☰</button>
+      <div class="brand"><span class="logo">{ }</span><span>Algorithm Playground</span></div>
+      <div class="global-controls">
+        <label class="speed">
+          <span>Speed</span>
+          <input type="range" id="speed" min="0.25" max="4" step="0.25" value="1" />
+          <output id="speedOut">1×</output>
+        </label>
+        <button id="pauseBtn" class="btn ghost" title="Pause / resume (space)">Pause</button>
+        <button id="resetBtn" class="btn ghost" title="Restart this scene">Reset</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <nav id="sidebar" class="sidebar" aria-label="Topics"></nav>
+
+      <main class="main">
+        <div class="scene-head">
+          <h1 id="sceneTitle"></h1>
+          <p id="sceneSubtitle"></p>
+        </div>
+        <div id="stage" class="stage">
+          <div id="hud" class="hud"></div>
+        </div>
+        <div id="controls" class="controls"></div>
+      </main>
+
+      <aside class="panel">
+        <section class="card">
+          <h2>How it works</h2>
+          <div id="about" class="about"></div>
+        </section>
+        <section class="card">
+          <h2>Complexity</h2>
+          <table id="complexity" class="complexity"></table>
+        </section>
+        <section class="card">
+          <h2>Code <span id="codeName" class="code-name"></span></h2>
+          <pre id="code" class="code"></pre>
+        </section>
+        <section class="card log-card">
+          <h2>Log</h2>
+          <ol id="log" class="log"></ol>
+        </section>
+      </aside>
+    </div>
+
+    <script src="lib/p5.min.js"></script>
+    <script src="lib/matter.min.js"></script>
+
+    <script src="js/core/theme.js"></script>
+    <script src="js/core/anim.js"></script>
+    <script src="js/core/physics.js"></script>
+    <script src="js/core/scene.js"></script>
+    <script src="js/core/treeView.js"></script>
+
+    <script src="js/scenes/bigO.js"></script>
+    <script src="js/scenes/searchRace.js"></script>
+    <script src="js/scenes/arrays.js"></script>
+    <script src="js/scenes/hashMap.js"></script>
+    <script src="js/scenes/stack.js"></script>
+    <script src="js/scenes/queue.js"></script>
+    <script src="js/scenes/linkedList.js"></script>
+    <script src="js/scenes/strings.js"></script>
+    <script src="js/scenes/sorting.js"></script>
+    <script src="js/scenes/bst.js"></script>
+    <script src="js/scenes/heap.js"></script>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
