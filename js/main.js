@@ -12,6 +12,13 @@ const SCENES = [
   SortingScene,
   BSTScene,
   HeapScene,
+  LoadBalancerScene,
+  CachingScene,
+  MessageQueueScene,
+  RateLimitScene,
+  ReplicationScene,
+  ShardingScene,
+  ResilienceScene,
 ];
 
 const $ = (id) => document.getElementById(id);
@@ -110,7 +117,7 @@ const App = {
     this.scene = scene;
     this.buildControls(scene.controls());
     $('about').innerHTML = scene.about();
-    this.buildComplexity(scene.complexity());
+    this.buildComplexity(scene.complexity(), scene.complexityTitle());
     scene.setup();
   },
 
@@ -213,10 +220,11 @@ const App = {
           } else {
             input = document.createElement('input');
             input.type = d.type === 'input' ? 'text' : d.type;
+            // range bounds must be set before the value, or the value is clamped
+            for (const k of ['min', 'max', 'step']) if (d[k] !== undefined) input[k] = d[k];
             if (d.value !== undefined) input.value = d.value;
             if (d.placeholder) input.placeholder = d.placeholder;
             if (d.maxLength) input.maxLength = d.maxLength;
-            for (const k of ['min', 'max', 'step']) if (d[k] !== undefined) input[k] = d[k];
             input.style.width = (d.width || (d.type === 'range' ? 130 : 90)) + 'px';
             if (d.type === 'range') {
               const out = document.createElement('span');
@@ -250,13 +258,15 @@ const App = {
 
   // ---- side panels ---------------------------------------------------------------
 
-  buildComplexity(rows) {
+  buildComplexity(rows, title = 'Complexity') {
     const table = $('complexity');
     table.innerHTML = '';
     table.closest('.card').style.display = rows.length ? '' : 'none';
+    $('complexityTitle').textContent = title;
     for (const [op, big, note] of rows) {
       const tr = document.createElement('tr');
-      const cls = /O\((1|log n)\)/.test(big) ? 'big-o-good' : /O\(n\)|O\(n log n\)|O\(n \+ m\)|O\(h\)|O\(k\)/.test(big) ? 'big-o-ok' : 'big-o-bad';
+      // colour Big O values; simulation scenes put plain numbers here instead
+      const cls = !/^O\(/.test(big) ? '' : /O\((1|log n)\)/.test(big) ? 'big-o-good' : /O\(n\)|O\(n log n\)|O\(n \+ m\)|O\(h\)|O\(k\)/.test(big) ? 'big-o-ok' : 'big-o-bad';
       tr.innerHTML = `<td>${op}${note ? `<br><small style="color:var(--muted)">${note}</small>` : ''}</td><td class="${cls}">${big}</td>`;
       table.appendChild(tr);
     }

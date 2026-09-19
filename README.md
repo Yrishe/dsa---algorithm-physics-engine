@@ -10,10 +10,16 @@ Animated, physics-driven visualisations of core programming concepts, built with
 | Strings | `str[i]`, reverse, toUpperCase, slice, concat, naive indexOf, split, palindrome |
 | Algorithms | Bubble, selection, insertion, merge and quick sort |
 | Trees | Binary search tree (insert / search / delete / traversals), binary heap (push / pop / heap sort) |
+| System design | Load balancing, caching & eviction, message queues, rate limiting, replication & CAP, sharding & consistent hashing, timeouts/retries/circuit breaker |
 
 Every scene has step-by-step controls, a live code panel that highlights the line being
 executed, a complexity table, stats and an operation log. The speed slider and
 Pause (or the space bar) apply to every animation.
+
+The data-structure scenes are step-by-step: you press an operation and watch it run. The
+system-design scenes are **live simulations** — traffic keeps arriving while you change
+the knobs (rate, servers, cache size, failure rate…), so you can watch queues fill,
+hit ratios settle, backlogs grow, circuits trip and shards rebalance.
 
 ## Running
 
@@ -35,6 +41,7 @@ js/core/anim.js       Animator: tweens, waits and waitUntil driven by the app cl
 js/core/physics.js    Matter.js world wrapper + p5 renderer for bodies
 js/core/scene.js      Scene base class and shared Draw helpers
 js/core/treeView.js   spring-anchored node renderer shared by the BST and heap
+js/core/flow.js       traffic generators, rate/latency meters, boxes-and-pipes drawing
 js/scenes/*.js        one file per visualisation
 js/main.js            navigation, controls builder, side panels, p5 sketch
 ```

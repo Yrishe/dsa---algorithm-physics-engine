@@ -37,6 +37,10 @@ class Scene {
   complexity() {
     return [];
   }
+  // Heading for the table above; simulations use it for "rules of thumb".
+  complexityTitle() {
+    return 'Complexity';
+  }
 
   // ---- helpers -------------------------------------------------------------
   get ui() {
@@ -78,6 +82,14 @@ class Scene {
 
   line(i) {
     this.app.highlightCode(i);
+  }
+
+  // Moves a range control and fires its handler (so the readout updates too).
+  setRange(id, value) {
+    const el = this.ui[id];
+    if (!el) return;
+    el.value = value;
+    el.dispatchEvent(new Event('input'));
   }
 
   inputValue(id) {
